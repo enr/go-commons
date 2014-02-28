@@ -1,6 +1,8 @@
 Go commons
 ==========
 
+[![Build Status](https://travis-ci.org/enr/go-commons.png?branch=master)](https://travis-ci.org/enr/go-commons)
+
 Go libraries for common functionalities.
 
 Environment
