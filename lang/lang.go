@@ -5,6 +5,7 @@ import (
 )
 
 // Returns true if the given string is present in a strings slice.
+// Case sensitive.
 func SliceContainsString(list []string, a string) bool {
 	for _, b := range list {
 		if b == a {
@@ -14,9 +15,10 @@ func SliceContainsString(list []string, a string) bool {
 	return false
 }
 
+// Copyright Am Laher
 // https://github.com/laher/goxc/blob/master/typeutils/mapstringinterfaceutils.go
-// Coerce interface{} to slice of strings.
-func InterfaceToStringSlice(v interface{}, k string) ([]string, error) {
+// Coerce a JSON array to slice of strings.
+func JsonArrayToStringSlice(v interface{}, k string) ([]string, error) {
 	ret := []string{}
 	switch typedV := v.(type) {
 	case []interface{}:
@@ -25,5 +27,5 @@ func InterfaceToStringSlice(v interface{}, k string) ([]string, error) {
 		}
 		return ret, nil
 	}
-	return ret, fmt.Errorf("%s should be a `[]interface{}`, got a %T", k, v)
+	return ret, fmt.Errorf("%s should be a `json array`, got a %T", k, v)
 }
