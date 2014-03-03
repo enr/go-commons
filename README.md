@@ -48,14 +48,24 @@ Import the library:
 Find if the given string is present in a strings slice:
 
 ```Go
-    SliceContainsString(list []string, a string)
+    actual := lang.SliceContainsString(haystack, needle)
 
 ```
 
-Converts a interface to slice of strings:
+Converts a JSON array to slice of strings:
 
 ```Go
-    InterfaceToStringSlice(v interface{}, k string) ([]string, error) 
+    jsonStr := `{"labels":[],"versions":["0.1","0.1.1","0.4","0.9"]}`
+    jsonB := []byte(jsonStr)
+    var b map[string]interface{}
+    err := json.Unmarshal(jsonB, &b)
+    if err != nil {
+        t.Errorf("unexpected error thrown %s", err)
+    }
+    if versions, keyExists := b["versions"]; keyExists {
+        versionsSlice, err := lang.JsonArrayToStringSlice(versions, "versions")
+        // ...
+    }
 
 ```
 
