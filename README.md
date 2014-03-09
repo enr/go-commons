@@ -22,14 +22,12 @@ Get environment variable:
 
 ```Go
     res := environment.GetenvEitherCase("TestGetenvEitherCase")
-
 ```
 
 Get user home:
 
 ```Go
     home, err := environment.UserHome()
-
 ```
 
 Lang
@@ -49,10 +47,17 @@ Find if the given string is present in a strings slice:
 
 ```Go
     actual := lang.SliceContainsString(haystack, needle)
-
 ```
 
-Converts a JSON array to slice of strings:
+Extract a first level field value from a JSON:
+
+```Go
+    jsonStr := `{"labels":[],"versions":["0.1","0.1.1","0.4","0.9"]}`
+    jsonB := []byte(jsonStr)
+    versions, err := lang.ExtractJsonFieldValue(jsonB, "versions")
+```
+
+Converts a JSON array (that is `[]interface {}{"foo", "bar"}`) to a slice of strings:
 
 ```Go
     jsonStr := `{"labels":[],"versions":["0.1","0.1.1","0.4","0.9"]}`
@@ -66,7 +71,6 @@ Converts a JSON array to slice of strings:
         versionsSlice, err := lang.JsonArrayToStringSlice(versions, "versions")
         // ...
     }
-
 ```
 
 

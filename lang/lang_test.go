@@ -1,7 +1,7 @@
 package lang
 
 import (
-"encoding/json"
+	"encoding/json"
 	"testing"
 )
 
@@ -34,6 +34,23 @@ func TestSliceContainsString_EmptySlice(t *testing.T) {
 	actual := SliceContainsString(haystack, needle)
 	if actual {
 		t.Errorf(`Looking for string in empty slice, expecting false got %t`, actual)
+	}
+}
+
+func TestExtractJsonFieldValue(t *testing.T) {
+	jsonStr := `{"labels":[],"versions":["0.1","0.1.1","0.4","0.9"]}`
+	jsonB := []byte(jsonStr)
+	versions, err := ExtractJsonFieldValue(jsonB, "versions")
+	if err != nil {
+		t.Errorf("unexpected error thrown %s", err)
+	}
+	_, fs := versions.([]interface{})
+	if !fs {
+		t.Errorf("versions expected `[]interface{}`, got a %T", versions)
+	}
+	_, fi := versions.(interface{})
+	if !fi {
+		t.Errorf("versions expected `interface{}`, got a %T", versions)
 	}
 }
 

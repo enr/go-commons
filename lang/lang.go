@@ -1,6 +1,8 @@
 package lang
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 )
 
@@ -13,6 +15,18 @@ func SliceContainsString(list []string, a string) bool {
 		}
 	}
 	return false
+}
+
+func ExtractJsonFieldValue(data []byte, key string) (interface{}, error) {
+	var b map[string]interface{}
+	err := json.Unmarshal(data, &b)
+	if err != nil {
+		return nil, err
+	}
+	if value, keyExists := b[key]; keyExists {
+		return value, nil
+	}
+	return nil, errors.New(`field "%s" not found`)
 }
 
 // Copyright Am Laher
