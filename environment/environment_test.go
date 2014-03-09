@@ -2,6 +2,7 @@ package environment
 
 import (
 	"os"
+	"runtime"
 	"testing"
 )
 
@@ -11,19 +12,37 @@ type envvar struct {
 }
 
 var vars = []envvar{
-	{"TestGetenvEitherCase", "TestGetenvEitherCase_value"},
-	{"TESTGETENVEITHERCASE", "TestGetenvEitherCase_value"},
-	{"testgetenveithercase", "TestGetenvEitherCase_value"},
+	{"TestGetenvEitherCase", "TestGetenvEitherCase_camel"},
+	{"TESTGETENVEITHERCASE", "TestGetenvEitherCase_upper"},
+	{"testgetenveithercase", "TestGetenvEitherCase_lower"},
 }
 
 func TestGetenvEitherCase(t *testing.T) {
-
 	for _, env := range vars {
 		os.Setenv(env.key, env.value)
 		res := GetenvEitherCase("TestGetenvEitherCase")
 		if res != env.value {
 			t.Errorf(`Env %s, got %s, expected %s`, env.key, res, env.value)
 		}
+		os.Setenv(env.key, "")
+	}
+}
+
+// No on windows
+func TestGetenvEitherCaseAllTogether(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		return
+	}
+	for _, env := range vars {
+		os.Setenv(env.key, env.value)
+	}
+	for _, env := range vars {
+		res := GetenvEitherCase(env.key)
+		if res != env.value {
+			t.Errorf(`Env %s, got %s, expected %s`, env.key, res, env.value)
+		}
+	}
+	for _, env := range vars {
 		os.Setenv(env.key, "")
 	}
 }
