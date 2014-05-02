@@ -30,6 +30,18 @@ Get user home:
     home, err := environment.UserHome()
 ```
 
+Get full path to commands (ala which):
+
+```Go
+    git := Which("git")
+    if git == "" {
+      fmt.Printf("git not found in path. exit\n")
+      os.Exit(1)
+    }
+    fmt.Printf("git found %s\n", git)
+```
+
+
 Lang
 ----
 
