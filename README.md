@@ -45,7 +45,7 @@ Get full path to commands (ala which):
 Lang
 ----
 
-Library pertining common data structures.
+Library pertaining common data structures.
 
 Import the library:
 
