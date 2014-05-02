@@ -33,7 +33,7 @@ Get user home:
 Get full path to commands (ala which):
 
 ```Go
-    git := Which("git")
+    git := environment.Which("git")
     if git == "" {
       fmt.Printf("git not found in path. exit\n")
       os.Exit(1)
