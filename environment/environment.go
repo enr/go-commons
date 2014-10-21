@@ -2,7 +2,7 @@ package environment
 
 import (
 	"os"
-	"os/user"
+	"github.com/mitchellh/go-homedir"
 	"strings"
 )
 
@@ -20,10 +20,9 @@ func GetenvEitherCase(k string) string {
 }
 
 func UserHome() (string, error) {
-	usr, err := user.Current()
+	home, err := homedir.Dir()
 	if err != nil {
 		return "", err
 	}
-	home := usr.HomeDir
 	return home, nil
 }
