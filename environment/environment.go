@@ -1,8 +1,9 @@
 package environment
 
 import (
-	"os"
 	"github.com/mitchellh/go-homedir"
+	"os"
+	"os/exec"
 	"strings"
 )
 
@@ -25,4 +26,20 @@ func UserHome() (string, error) {
 		return "", err
 	}
 	return home, nil
+}
+
+func whichExecutable(exe string) (string, error) {
+	path, err := exec.LookPath(exe)
+	if err != nil {
+		if _, ok := err.(*exec.Error); ok {
+			return "", nil
+		}
+		return "", err
+	}
+	return path, nil
+}
+
+func Which(exe string) string {
+	path, _ := whichExecutable(exe)
+	return path
 }

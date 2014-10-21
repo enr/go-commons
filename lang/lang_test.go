@@ -7,8 +7,8 @@ import (
 
 type search struct {
 	haystack []string
-	needle string
-	expects bool
+	needle   string
+	expects  bool
 }
 
 var searches = []search{

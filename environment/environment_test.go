@@ -53,3 +53,10 @@ func TestGetenvEitherCase_emptykey(t *testing.T) {
 		t.Errorf(`Env "", got "%s", expected ""`, res)
 	}
 }
+
+func TestWhich_smoke(t *testing.T) {
+	res := Which("go")
+	if res == "" {
+		t.Errorf(`Which(go), got "", expected something...`)
+	}
+}
