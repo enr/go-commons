@@ -60,3 +60,13 @@ func TestWhich_smoke(t *testing.T) {
 		t.Errorf(`Which(go), got "", expected something...`)
 	}
 }
+
+func TestWhichFullPath(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		return
+	}
+	res := Which("/bin/bash")
+	if res != "/bin/bash" {
+		t.Errorf(`TestWhichFullPath, expected /bin/bash but got "%s"`, res)
+	}
+}
