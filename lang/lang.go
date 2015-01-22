@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Returns true if the given string is present in a strings slice.
+// SliceContainsString returns true if the given string is present in a strings slice.
 // Case sensitive.
 func SliceContainsString(list []string, a string) bool {
 	for _, b := range list {
@@ -17,7 +17,8 @@ func SliceContainsString(list []string, a string) bool {
 	return false
 }
 
-func ExtractJsonFieldValue(data []byte, key string) (interface{}, error) {
+// ExtractJSONFieldValue returns the value for a given field of a JSON structure.
+func ExtractJSONFieldValue(data []byte, key string) (interface{}, error) {
 	var b map[string]interface{}
 	err := json.Unmarshal(data, &b)
 	if err != nil {
@@ -29,10 +30,10 @@ func ExtractJsonFieldValue(data []byte, key string) (interface{}, error) {
 	return nil, errors.New(`field "%s" not found`)
 }
 
+// JSONArrayToStringSlice coerces a JSON array to slice of strings.
 // Copyright Am Laher
 // https://github.com/laher/goxc/blob/master/typeutils/mapstringinterfaceutils.go
-// Coerce a JSON array to slice of strings.
-func JsonArrayToStringSlice(v interface{}, k string) ([]string, error) {
+func JSONArrayToStringSlice(v interface{}, k string) ([]string, error) {
 	ret := []string{}
 	switch typedV := v.(type) {
 	case []interface{}:

@@ -40,7 +40,7 @@ func TestSliceContainsString_EmptySlice(t *testing.T) {
 func TestExtractJsonFieldValue(t *testing.T) {
 	jsonStr := `{"labels":[],"versions":["0.1","0.1.1","0.4","0.9"]}`
 	jsonB := []byte(jsonStr)
-	versions, err := ExtractJsonFieldValue(jsonB, "versions")
+	versions, err := ExtractJSONFieldValue(jsonB, "versions")
 	if err != nil {
 		t.Errorf("unexpected error thrown %s", err)
 	}
@@ -64,7 +64,7 @@ func TestJsonArrayToStringSlice(t *testing.T) {
 		t.Errorf("unexpected error thrown %s", err)
 	}
 	if versions, keyExists := b["versions"]; keyExists {
-		versionsSlice, err := JsonArrayToStringSlice(versions, "versions")
+		versionsSlice, err := JSONArrayToStringSlice(versions, "versions")
 		if err != nil {
 			t.Errorf("unexpected error thrown %s", err)
 		}

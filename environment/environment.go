@@ -1,12 +1,15 @@
 package environment
 
 import (
-	"github.com/mitchellh/go-homedir"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/mitchellh/go-homedir"
 )
 
+// GetenvEitherCase returns env var.
+// Got from http://golang.org/src/pkg/net/http/transport.go
 func GetenvEitherCase(k string) string {
 	if k == "" {
 		return ""
@@ -20,6 +23,7 @@ func GetenvEitherCase(k string) string {
 	return os.Getenv(strings.ToLower(k))
 }
 
+// UserHome returns the home directory for the executing user.
 func UserHome() (string, error) {
 	home, err := homedir.Dir()
 	if err != nil {
@@ -39,6 +43,7 @@ func whichExecutable(exe string) (string, error) {
 	return path, nil
 }
 
+// Which returns the full path to executable or an empty string if executable is not found.
 func Which(exe string) string {
 	path, _ := whichExecutable(exe)
 	return path
