@@ -4,17 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"sort"
 )
 
 // SliceContainsString returns true if the given string is present in a strings slice.
 // Case sensitive.
 func SliceContainsString(list []string, a string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
+	sort.Strings(list)
+	i := sort.SearchStrings(list, a)
+	return (i < len(list) && list[i] == a)
 }
 
 // ExtractJSONFieldValue returns the value for a given field of a JSON structure.
